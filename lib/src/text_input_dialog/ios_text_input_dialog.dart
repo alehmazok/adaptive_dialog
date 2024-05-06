@@ -4,7 +4,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class IOSTextInputDialog extends StatefulWidget {
+import 'common_text_input_dialog.dart';
+
+class IOSTextInputDialog extends StatefulWidget with CommonTextInputDialog {
   const IOSTextInputDialog({
     super.key,
     required this.textFields,
@@ -19,9 +21,11 @@ class IOSTextInputDialog extends StatefulWidget {
     required this.onPopInvoked,
     this.autoSubmit = false,
   });
+
   @override
   State<IOSTextInputDialog> createState() => _IOSTextInputDialogState();
 
+  @override
   final List<DialogTextField> textFields;
   final String? title;
   final String? message;
@@ -36,9 +40,8 @@ class IOSTextInputDialog extends StatefulWidget {
 }
 
 class _IOSTextInputDialogState extends State<IOSTextInputDialog> {
-  late final List<TextEditingController> _textControllers = widget.textFields
-      .map((tf) => TextEditingController(text: tf.initialText))
-      .toList();
+  late final List<TextEditingController> _textControllers =
+      widget.textEditingControllers.toList();
   String? _validationMessage;
   bool _autovalidate = false;
 

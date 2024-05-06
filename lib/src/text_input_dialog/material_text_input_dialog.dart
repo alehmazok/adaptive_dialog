@@ -2,8 +2,11 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
+import 'common_text_input_dialog.dart';
+
 // TODO(mono): 3ファイルでコピペ実装になっているのを良い感じにまとめたい
-class MaterialTextInputDialog extends StatefulWidget {
+class MaterialTextInputDialog extends StatefulWidget
+    with CommonTextInputDialog {
   const MaterialTextInputDialog({
     super.key,
     required this.textFields,
@@ -20,10 +23,12 @@ class MaterialTextInputDialog extends StatefulWidget {
     required this.onPopInvoked,
     this.autoSubmit = false,
   });
+
   @override
   State<MaterialTextInputDialog> createState() =>
       _MaterialTextInputDialogState();
 
+  @override
   final List<DialogTextField> textFields;
   final String? title;
   final String? message;
@@ -40,9 +45,8 @@ class MaterialTextInputDialog extends StatefulWidget {
 }
 
 class _MaterialTextInputDialogState extends State<MaterialTextInputDialog> {
-  late final List<TextEditingController> _textControllers = widget.textFields
-      .map((tf) => TextEditingController(text: tf.initialText))
-      .toList();
+  late final Iterable<TextEditingController> _textControllers =
+      widget.textEditingControllers;
   final _formKey = GlobalKey<FormState>();
   var _autovalidateMode = AutovalidateMode.disabled;
 

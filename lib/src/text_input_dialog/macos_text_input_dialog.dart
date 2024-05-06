@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:intersperse/intersperse.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class MacOSTextInputDialog extends StatefulWidget {
+import 'common_text_input_dialog.dart';
+
+class MacOSTextInputDialog extends StatefulWidget with CommonTextInputDialog {
   const MacOSTextInputDialog({
     super.key,
     required this.textFields,
@@ -22,9 +24,11 @@ class MacOSTextInputDialog extends StatefulWidget {
     required this.onPopInvoked,
     this.autoSubmit = false,
   });
+
   @override
   State<MacOSTextInputDialog> createState() => _MacOSTextInputDialogState();
 
+  @override
   final List<DialogTextField> textFields;
   final String? title;
   final String? message;
@@ -39,9 +43,8 @@ class MacOSTextInputDialog extends StatefulWidget {
 }
 
 class _MacOSTextInputDialogState extends State<MacOSTextInputDialog> {
-  late final List<TextEditingController> _textControllers = widget.textFields
-      .map((tf) => TextEditingController(text: tf.initialText))
-      .toList();
+  late final List<TextEditingController> _textControllers =
+      widget.textEditingControllers.toList();
   String? _validationMessage;
   bool _autovalidate = false;
 

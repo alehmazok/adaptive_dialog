@@ -132,7 +132,9 @@ class DialogTextField {
     this.maxLength,
     this.autocorrect = true,
     this.spellCheckConfiguration,
+    this.initialTextSelection,
   });
+
   final String? initialText;
   final String? hintText;
   final bool obscureText;
@@ -146,4 +148,5 @@ class DialogTextField {
   final int? maxLength;
   final bool autocorrect;
   final SpellCheckConfiguration? spellCheckConfiguration;
+  final TextSelection? initialTextSelection;
 }
