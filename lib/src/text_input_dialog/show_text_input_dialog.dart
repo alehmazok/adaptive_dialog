@@ -133,6 +133,7 @@ class DialogTextField {
     this.autocorrect = true,
     this.spellCheckConfiguration,
     this.initialTextSelection,
+    this.padding,
   });
 
   final String? initialText;
@@ -149,4 +150,5 @@ class DialogTextField {
   final bool autocorrect;
   final SpellCheckConfiguration? spellCheckConfiguration;
   final TextSelection? initialTextSelection;
+  final EdgeInsets? padding;
 }

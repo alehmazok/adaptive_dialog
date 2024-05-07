@@ -123,28 +123,32 @@ class _MaterialTextInputDialogState extends State<MaterialTextInputDialog> {
               ..._textControllers.mapIndexed((i, c) {
                 final isLast = widget.textFields.length == i + 1;
                 final field = widget.textFields[i];
-                return TextFormField(
-                  controller: c,
-                  autofocus: i == 0,
-                  obscureText: field.obscureText,
-                  keyboardType: field.keyboardType,
-                  textCapitalization: field.textCapitalization,
-                  minLines: field.minLines,
-                  maxLines: field.maxLines,
-                  maxLength: field.maxLength,
-                  autocorrect: field.autocorrect,
-                  decoration: InputDecoration(
-                    hintText: field.hintText,
-                    prefixText: field.prefixText,
-                    suffixText: field.suffixText,
+                final padding = field.padding;
+                return Padding(
+                  padding: padding ?? EdgeInsets.zero,
+                  child: TextFormField(
+                    controller: c,
+                    autofocus: i == 0,
+                    obscureText: field.obscureText,
+                    keyboardType: field.keyboardType,
+                    textCapitalization: field.textCapitalization,
+                    minLines: field.minLines,
+                    maxLines: field.maxLines,
+                    maxLength: field.maxLength,
+                    autocorrect: field.autocorrect,
+                    decoration: InputDecoration(
+                      hintText: field.hintText,
+                      prefixText: field.prefixText,
+                      suffixText: field.suffixText,
+                    ),
+                    validator: field.validator,
+                    autovalidateMode: _autovalidateMode,
+                    textInputAction: isLast ? null : TextInputAction.next,
+                    onFieldSubmitted: isLast && widget.autoSubmit
+                        ? (_) => submitIfValid()
+                        : null,
+                    spellCheckConfiguration: field.spellCheckConfiguration,
                   ),
-                  validator: field.validator,
-                  autovalidateMode: _autovalidateMode,
-                  textInputAction: isLast ? null : TextInputAction.next,
-                  onFieldSubmitted: isLast && widget.autoSubmit
-                      ? (_) => submitIfValid()
-                      : null,
-                  spellCheckConfiguration: field.spellCheckConfiguration,
                 );
               }),
             ],
